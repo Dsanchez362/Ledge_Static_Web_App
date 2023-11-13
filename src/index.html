@@ -33,6 +33,7 @@
         <option value="embed-url-2">Finance Dashboard</option>
         <option value="embed-url-3">Shipping Dashboard</option>
         <option value="embed-url-4">FedEx Detailed Dashboard</option>
+        <option value="embed-url-5">PO Transparency</option>
         <!-- Add more options as needed -->
     </select>
 
@@ -69,6 +70,12 @@
                     break;
                 default:
                     embedUrl = "DEFAULT_URL";
+                case "embed-url-5":
+                    embedUrl = "https://app.powerbi.com/view?r=eyJrIjoiZTUwMGY2MmMtNTFjZC00NWZmLTkwZjUtMWRhZWM5Mjg0NjBlIiwidCI6IjYxN2M2NGVkLTdjYzQtNDNiMS05Y2U2LTY4YzQ5NTgzMDNhNCJ9";
+                    break;
+                default:
+                    embedUrl = "DEFAULT_URL";
+            }
             }
 
             iframe.src = embedUrl;
