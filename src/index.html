@@ -1,17 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ledge Loungers Dashboards</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        select {
+            margin: 10px;
+        }
+
+        div {
+            width: 100%;
+            height: 95vh; /* Initial value, can be adjusted in JavaScript */
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
 </head>
-
 <body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
-</body>
+    <select id="reportSelector">
+        <option value="embed-url-1">Fulfillment Dashboard</option>
+        <option value="embed-url-2">Finance Dashboard</option>
+        <option value="embed-url-3">Shipping Dashboard</option>
+        <option value="embed-url-4">FedEx Detailed Dashboard</option>
+        <!-- Add more options as needed -->
+    </select>
 
+    <div id="dashboardContainer">
+        <iframe id="reportIframe" allowFullScreen="true"></iframe>
+    </div>
+
+    <script>
+        function updateDashboardSize() {
+            var windowHeight = window.innerHeight;
+            var newHeight = 0.95 * windowHeight; // Adjust the multiplier as needed
+
+            document.getElementById("dashboardContainer").style.height = newHeight + "px";
+        }
+
+        function updateReport() {
+            var select = document.getElementById("reportSelector");
+            var iframe = document.getElementById("reportIframe");
+            var selectedValue = select.value;
+            var embedUrl;
+
+            switch (selectedValue) {
+                case "embed-url-1":
+                    embedUrl = "https://app.powerbi.com/view?r=eyJrIjoiN2JiZjEwMTUtMTZhOC00ZmYxLTg1M2EtOGI0YjcxYWZjZDM1IiwidCI6IjYxN2M2NGVkLTdjYzQtNDNiMS05Y2U2LTY4YzQ5NTgzMDNhNCJ9";
+                    break;
+                case "embed-url-2":
+                    embedUrl = "https://app.powerbi.com/view?r=eyJrIjoiYWVkZTgzYWEtMzY1Ny00ZDExLTg5YTctYjJjNjI4ODIwYTdiIiwidCI6IjYxN2M2NGVkLTdjYzQtNDNiMS05Y2U2LTY4YzQ5NTgzMDNhNCJ9";
+                    break;
+                case "embed-url-3":
+                    embedUrl = "https://app.powerbi.com/view?r=eyJrIjoiNjdhOTM1MDUtNDI1Zi00NDExLTgxMWYtN2JkNzE5NDUxNjE4IiwidCI6IjYxN2M2NGVkLTdjYzQtNDNiMS05Y2U2LTY4YzQ5NTgzMDNhNCJ9";
+                    break;
+                case "embed-url-4":
+                    embedUrl = "https://app.powerbi.com/view?r=eyJrIjoiZGZlZjFkY2MtMWEwZC00MTkxLWI3OTgtMDFiZjBmY2U3OTkyIiwidCI6IjYxN2M2NGVkLTdjYzQtNDNiMS05Y2U2LTY4YzQ5NTgzMDNhNCJ9";
+                    break;
+                default:
+                    embedUrl = "DEFAULT_URL";
+            }
+
+            iframe.src = embedUrl;
+        }
+
+        function handleResizeAndOrientationChange() {
+            updateDashboardSize();
+            updateReport();
+        }
+
+        document.getElementById("reportSelector").addEventListener("change", updateReport);
+
+        window.addEventListener("resize", handleResizeAndOrientationChange);
+        window.addEventListener("orientationchange", handleResizeAndOrientationChange);
+
+        updateReport(); // Initial call to set the default report
+        updateDashboardSize(); // Initial call to set the initial dashboard size
+    </script>
+</body>
 </html>
